@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --fpl-purple: #37003c;
+  --fpl-pink: #ff2882;
+  --fpl-green: #00ff87;
+  --fpl-gradient: linear-gradient(135deg, var(--fpl-purple) 0%, #240028 100%);
+}
+
+body {
+  background-color: #f8f9fa;
+  color: #2d3748;
+  font-family: 'PremierSans-Regular', -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* FPL-style header and navigation */
+.fpl-header {
+  position: relative;
+  overflow: hidden;
+}
+
+.fpl-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.fpl-header::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--fpl-green);
+  z-index: 2;
+}
+
+.fpl-header .container {
+  position: relative;
+}
+
+/* Card styles matching FPL */
+.stat-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(55, 0, 60, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(55, 0, 60, 0.1);
+}
+
+/* Icon containers */
+.stat-icon {
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.icon-purple {
+  background: rgba(55, 0, 60, 0.1);
+  color: var(--fpl-purple);
+}
+
+.icon-green {
+  background: rgba(0, 255, 135, 0.1);
+  color: #059669;
+}
+
+.icon-red {
+  background: rgba(255, 40, 130, 0.1);
+  color: #dc2626;
+}
+
+/* Table styles */
+.table-container {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.table-header {
+  background: linear-gradient(to right, rgba(55, 0, 60, 0.05), rgba(55, 0, 60, 0.02));
+  border-bottom: 2px solid rgba(55, 0, 60, 0.1);
+}
+
+.table-row {
+  transition: background-color 0.2s ease;
+}
+
+.table-row:hover {
+  background: rgba(55, 0, 60, 0.02);
+}
+
+/* Button styles */
+.fpl-button {
+  background: var(--fpl-gradient);
+  color: white;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.fpl-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(55, 0, 60, 0.2);
+}
+
+.fpl-button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--fpl-green);
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+
+.fpl-button:hover::after {
+  transform: scaleX(1);
+}
+
+/* Add line clamping for performance narratives */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* FPL-style badges and tags */
+.rank-badge {
+  background: var(--fpl-gradient);
+  color: white;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 4px rgba(55, 0, 60, 0.2);
+}
+
+.stat-value {
+  color: var(--fpl-purple);
+  font-weight: 700;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* Performance indicators */
+.performance-up {
+  color: var(--fpl-green);
+}
+
+.performance-down {
+  color: var(--fpl-pink);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(55, 0, 60, 0.05);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fpl-purple);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #240028;
+}
