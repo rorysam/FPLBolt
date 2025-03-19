@@ -28,14 +28,14 @@ interface LeagueGraphProps {
 }
 
 const COLORS = [
-  '#37003c', // FPL purple
-  '#059669', // Emerald green
-  '#dc2626', // Red
-  '#2563eb', // Blue
-  '#d97706', // Amber
-  '#7c3aed', // Violet
-  '#db2777', // Pink
-  '#0891b2', // Cyan
+  '#37003c',
+  '#059669',
+  '#dc2626',
+  '#2563eb',
+  '#d97706',
+  '#7c3aed',
+  '#db2777',
+  '#0891b2',
 ];
 
 export function LeagueGraph({ standings }: LeagueGraphProps) {
@@ -46,7 +46,7 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
   const toggleTeam = (teamId: number) => {
     const newVisibleTeams = new Set(visibleTeams);
     if (newVisibleTeams.has(teamId)) {
-      if (newVisibleTeams.size > 1) { // Prevent hiding all teams
+      if (newVisibleTeams.size > 1) {
         newVisibleTeams.delete(teamId);
       }
     } else {
@@ -105,6 +105,7 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
       y: {
         reverse: true,
@@ -114,13 +115,16 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
         ticks: {
           color: '#64748b',
           stepSize: 1,
+          font: {
+            size: 10,
+          },
         },
         title: {
           display: true,
           text: 'League Position',
           color: '#334155',
           font: {
-            size: 14,
+            size: 12,
             weight: 'bold',
           },
         },
@@ -131,13 +135,16 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
         },
         ticks: {
           color: '#64748b',
+          font: {
+            size: 10,
+          },
         },
         title: {
           display: true,
           text: 'Recent Gameweeks',
           color: '#334155',
           font: {
-            size: 14,
+            size: 12,
             weight: 'bold',
           },
         },
@@ -152,11 +159,11 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
         text: 'Recent League Position History',
         color: '#334155',
         font: {
-          size: 16,
+          size: 14,
           weight: 'bold',
         },
         padding: {
-          bottom: 20,
+          bottom: 16,
         },
       },
       tooltip: {
@@ -176,6 +183,12 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
         borderColor: '#e2e8f0',
         borderWidth: 1,
         padding: 12,
+        titleFont: {
+          size: 12,
+        },
+        bodyFont: {
+          size: 12,
+        },
       },
     },
     interaction: {
@@ -185,36 +198,38 @@ export function LeagueGraph({ standings }: LeagueGraphProps) {
   };
 
   return (
-    <div className="w-full space-y-6">
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="w-full space-y-4 sm:space-y-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
         {standings.map((team, index) => (
           <button
             key={team.entry}
             onClick={() => toggleTeam(team.entry)}
-            className={`flex items-center justify-between p-3 rounded-lg transition-all ${
+            className={`flex items-center justify-between p-2 sm:p-3 rounded-lg transition-all ${
               visibleTeams.has(team.entry)
                 ? 'bg-gray-100 hover:bg-gray-200'
                 : 'bg-gray-50 hover:bg-gray-100 opacity-60'
             }`}
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 min-w-0">
               <div
-                className="w-3 h-3 rounded-full"
+                className="w-2 h-2 sm:w-3 sm:h-3 rounded-full flex-shrink-0"
                 style={{ backgroundColor: COLORS[index % COLORS.length] }}
               />
-              <span className="text-sm font-medium truncate">
+              <span className="text-xs sm:text-sm font-medium truncate">
                 {team.entry_name}
               </span>
             </div>
             {visibleTeams.has(team.entry) ? (
-              <Eye className="w-4 h-4 text-gray-500" />
+              <Eye className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 flex-shrink-0" />
             ) : (
-              <EyeOff className="w-4 h-4 text-gray-400" />
+              <EyeOff className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 flex-shrink-0" />
             )}
           </button>
         ))}
       </div>
-      <Line data={data} options={options} />
+      <div className="h-[300px] sm:h-[400px]">
+        <Line data={data} options={options} />
+      </div>
     </div>
   );
 }

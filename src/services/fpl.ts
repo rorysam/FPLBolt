@@ -392,12 +392,19 @@ export async function fetchLeagueStandings(leagueId: number, gameweek: number): 
     const gwTransferCost = teamHistory.find(h => h.event === gameweek)?.event_transfers_cost || 0;
     const eventTotal = gwPoints - gwTransferCost;
     
-    const recentHistory = teamHistory
+    // Get all gameweek history up to current gameweek for team spotlight
+    const fullHistory = teamHistory
+      .filter(gw => gw.event <= gameweek) // Only include gameweeks up to selected gameweek
       .map(gw => ({
         gameweek: gw.event,
         rank: gw.rank,
-        total: gw.total_points
+        total: gw.total_points,
+        points: gw.points - gw.event_transfers_cost // Net points after transfer costs
       }))
+      .sort((a, b) => a.gameweek - b.gameweek);
+
+    // Get recent history (last 5 gameweeks) for league graph
+    const recentHistory = [...fullHistory]
       .sort((a, b) => b.gameweek - a.gameweek)
       .slice(0, 5)
       .reverse();
@@ -428,6 +435,7 @@ export async function fetchLeagueStandings(leagueId: number, gameweek: number): 
       event_total: eventTotal,
       gameweek: gameweek,
       history: recentHistory,
+      fullHistory: fullHistory,
       chips: uniqueChips
     };
   });

@@ -224,7 +224,7 @@ export function DebriefSummary({ summary }: DebriefSummaryProps) {
         </div>
       </div>
 
-      {spotlightTeam && <TeamSpotlight team={spotlightTeam} />}
+      {spotlightTeam && <TeamSpotlight team={spotlightTeam} standings={summary.standings} />}
 
       <div className="stat-card rounded-xl p-6">
         <LeagueGraph standings={summary.standings} />

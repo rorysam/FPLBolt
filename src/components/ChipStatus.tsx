@@ -43,53 +43,55 @@ export function ChipStatus({ standings }: ChipStatusProps) {
   };
 
   return (
-    <div className="stat-card rounded-xl p-6">
-      <div className="flex items-center space-x-3 mb-6">
+    <div className="stat-card rounded-xl">
+      <div className="flex items-center space-x-3 mb-4 sm:mb-6 p-4 sm:p-6 border-b border-gray-100">
         <div className="stat-icon icon-purple">
-          <Zap className="w-6 h-6" />
+          <Zap className="w-5 h-5 sm:w-6 sm:h-6" />
         </div>
-        <h3 className="text-lg font-bold text-gray-900">Chip Status</h3>
+        <h3 className="text-base sm:text-lg font-bold text-gray-900">Chip Status</h3>
       </div>
       
       <div className="overflow-x-auto">
-        <table className="w-full">
-          <thead className="table-header">
-            <tr>
-              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-600">Team</th>
-              {chipTypes.map(chip => (
-                <th key={chip} className="px-4 py-3 text-center text-sm font-semibold text-gray-600">
-                  {chipNames[chip]}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200">
-            {standings.map((team) => (
-              <tr key={team.entry} className="table-row">
-                <td className="px-4 py-3 text-sm font-medium text-gray-900">
-                  {team.entry_name}
-                </td>
-                {chipTypes.map(chip => {
-                  const chipInfo = team.chips?.find(c => c.name === chip);
-                  const colors = chipColors[chip];
-                  return (
-                    <td key={chip} className="px-4 py-3 text-center">
-                      {chipInfo?.used ? (
-                        <span className={`text-xs ${colors.bg} ${colors.text} py-1 px-2 rounded-full border ${colors.border} font-medium`}>
-                          GW {chipInfo.gameweek}
-                        </span>
-                      ) : (
-                        <span className="text-xs bg-emerald-50 text-emerald-700 py-1 px-2 rounded-full border border-emerald-200 font-medium transition-colors hover:bg-emerald-100">
-                          Available
-                        </span>
-                      )}
-                    </td>
-                  );
-                })}
+        <div className="min-w-[600px]">
+          <table className="w-full">
+            <thead className="table-header">
+              <tr>
+                <th className="px-4 py-3 text-left text-xs sm:text-sm font-semibold text-gray-600">Team</th>
+                {chipTypes.map(chip => (
+                  <th key={chip} className="px-2 sm:px-4 py-3 text-center text-xs sm:text-sm font-semibold text-gray-600">
+                    {chipNames[chip]}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {standings.map((team) => (
+                <tr key={team.entry} className="table-row">
+                  <td className="px-4 py-3 text-xs sm:text-sm font-medium text-gray-900">
+                    {team.entry_name}
+                  </td>
+                  {chipTypes.map(chip => {
+                    const chipInfo = team.chips?.find(c => c.name === chip);
+                    const colors = chipColors[chip];
+                    return (
+                      <td key={chip} className="px-2 sm:px-4 py-3 text-center">
+                        {chipInfo?.used ? (
+                          <span className={`text-xs ${colors.bg} ${colors.text} py-1 px-2 rounded-full border ${colors.border} font-medium`}>
+                            GW {chipInfo.gameweek}
+                          </span>
+                        ) : (
+                          <span className="text-xs bg-emerald-50 text-emerald-700 py-1 px-2 rounded-full border border-emerald-200 font-medium transition-colors hover:bg-emerald-100">
+                            Available
+                          </span>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

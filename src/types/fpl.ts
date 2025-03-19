@@ -11,6 +11,13 @@ export interface LeagueStanding {
     gameweek: number;
     rank: number;
     total: number;
+    points: number;
+  }[];
+  fullHistory: {
+    gameweek: number;
+    rank: number;
+    total: number;
+    points: number;
   }[];
   chips: {
     name: string;
